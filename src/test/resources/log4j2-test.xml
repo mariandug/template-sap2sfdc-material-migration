@@ -13,10 +13,10 @@
         <Logger name="org.mule.extension.http" level="WARN"/>
 
         <!-- Mule classes -->
-        <Logger name="org.mule" level="INFO"/>
-        <Logger name="com.mulesoft" level="INFO"/>
+        <Logger name="org.mule" level="WARN"/>
+        <Logger name="com.mulesoft" level="WARN"/>
 
-        <AsyncRoot level="INFO">
+        <AsyncRoot level="WARN">
             <AppenderRef ref="Console"/>
         </AsyncRoot>
     </Loggers>

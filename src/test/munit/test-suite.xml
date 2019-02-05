@@ -17,7 +17,8 @@ http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mu
     <configuration-properties doc:name="Configuration properties" file="common.properties" />
     
     <munit:before-test name="test-suite-Before_Test" description="Before tests actions" doc:id="e8d6de21-d3dc-443b-99f1-8e5808de4b3c">
-        <flow-ref doc:name="Call getSAPMaterialsSubFlow" doc:id="fc0f7640-b6e4-472b-8c27-3d64b94977af" name="getSAPMaterialsSubFlow" />
+        <logger level="WARN" doc:name="Logger" doc:id="d495eb70-c3e5-4da2-aac3-8655b36b15dc" message="Before test"/>
+		<flow-ref doc:name="Call getSAPMaterialsSubFlow" doc:id="fc0f7640-b6e4-472b-8c27-3d64b94977af" name="getSAPMaterialsSubFlow" />
         <ee:transform doc:name="Prepare test data" doc:id="9761511e-1f2d-4644-ace7-3d59a693b516">
             <ee:message>
             </ee:message>
@@ -59,7 +60,8 @@ output application/java
     
     <munit:test name="test-suite-businessLogicFlowTest" description="Test" doc:id="51187b9d-6f3a-4f15-9b83-06843b200d52">
         <munit:execution>
-            <flow-ref doc:name="Call businessLogicFlow" doc:id="3d246008-b21e-4ec0-b7b3-01f52695f0ab" name="businessLogicFlow" />
+            <logger level="WARN" doc:name="Logger" doc:id="19625417-6652-47bf-8a90-34a290dec617" message="Test execution"/>
+			<flow-ref doc:name="Call businessLogicFlow" doc:id="3d246008-b21e-4ec0-b7b3-01f52695f0ab" name="businessLogicFlow" />
             <scripting:execute doc:name="Sleep for 10s until the processing is completed" doc:id="a11612ff-334f-4f43-aef6-84ae425515f9"
                 engine="groovy">
                 <scripting:code>sleep(10000)</scripting:code>
@@ -94,7 +96,8 @@ vars.sfdcIds + vars.resultCreated.Id]]></ee:set-variable>
             </salesforce:query-single>
         </munit:execution>
         <munit:validation>
-            <munit-tools:assert-that doc:name="Assert that record is created in Salesforce" expression="#[vars.resultCreated.Id]"
+            <logger level="WARN" doc:name="Logger" doc:id="d7a9dad5-e20a-4e2f-a7f2-7c9d68eb855a" message="Test verification"/>
+			<munit-tools:assert-that doc:name="Assert that record is created in Salesforce" expression="#[vars.resultCreated.Id]"
                 is="#[MunitTools::notNullValue()]" message="Record isn't created in Salesforce" />
             <munit-tools:assert-that doc:name="Assert that record is updated in Salesforce" expression="#[vars.resultUpdated.Name]"
                 is="#[MunitTools::equalTo(vars.testDataUpdate.Name)]" message="Record isn't updated in Salesforce" />
@@ -102,7 +105,8 @@ vars.sfdcIds + vars.resultCreated.Id]]></ee:set-variable>
     </munit:test>
     
     <munit:after-test name="test-suiteAfter_Test" description="After tests actions" doc:id="913515a7-4abe-41e3-bf2c-82bb9ec21576">
-        <salesforce:delete doc:name="Delete test data from Salesforce" doc:id="684f9f53-46e5-4c33-b15f-482efb72d52e" config-ref="Salesforce">
+        <logger level="WARN" doc:name="Logger" doc:id="6186908d-b146-4e5e-913a-febe8608332f" message="After test"/>
+		<salesforce:delete doc:name="Delete test data from Salesforce" doc:id="684f9f53-46e5-4c33-b15f-482efb72d52e" config-ref="Salesforce">
             <salesforce:delete-ids><![CDATA[#[vars.sfdcIds]]]></salesforce:delete-ids>
         </salesforce:delete>
     </munit:after-test>
