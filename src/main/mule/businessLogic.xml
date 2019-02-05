@@ -82,6 +82,7 @@ payload ++ {Id : vars.sfdcId}]]></ee:set-payload>
 		</batch:job>
 	</flow>
 	<sub-flow name="getSAPMaterialsSubFlow" doc:id="62136214-d630-456f-917a-027dfe554b2f" >
+		<logger level="WARN" doc:name="Logger" doc:id="44eec178-7be7-4900-a67c-6d8066846998" message="1 getSAPMaterialsSubFlow"/>
 		<ee:transform doc:name="Set XML input" doc:id="9f392df5-f0cc-46c6-9b0a-a383742ecfa6">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
@@ -96,7 +97,9 @@ output application/xml
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<logger level="WARN" doc:name="Logger" doc:id="802a5e3e-d156-41c9-9d03-30064cbd9475" message="2 getSAPMaterialsSubFlow"/>
 		<sap:execute-synchronous-remote-function-call doc:name="Query Materials from SAP" doc:id="3608ff92-eae3-469f-8b0b-047f118699aa" config-ref="SAP_Outbound" key="ZMMFM_MATERIAL_GETLIST" />
+		<logger level="WARN" doc:name="Logger" doc:id="6f492eba-e7bb-4a82-8faf-6cca4004a52e" message="3 getSAPMaterialsSubFlow"/>
 		<ee:transform doc:name="ZMMFM_MATERIAL_GETLIST to Salesforce Materials" doc:id="75a8b7f3-29ce-4f2e-82fd-6cd5327aa631">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
@@ -109,6 +112,7 @@ payload.ZMMFM_MATERIAL_GETLIST.tables.T_MARA.*row map
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<logger level="WARN" doc:name="Logger" doc:id="9e20e2a0-99ec-444f-a140-0c3c523efef7" message="4 getSAPMaterialsSubFlow"/>
 	</sub-flow>
 	<flow name="mainFlow" doc:id="7c0a5bef-b3d5-442f-bff3-10d038f69a5e">
 		<flow-ref doc:name="businessLogicFlow" doc:id="91360ede-4d71-44c7-9b64-8ee762e04ea0"
