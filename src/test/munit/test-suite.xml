@@ -17,9 +17,10 @@ http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mu
     <configuration-properties doc:name="Configuration properties" file="common.properties" />
     
     <munit:before-test name="test-suite-Before_Test" description="Before tests actions" doc:id="e8d6de21-d3dc-443b-99f1-8e5808de4b3c">
-        <logger level="WARN" doc:name="Logger" doc:id="d495eb70-c3e5-4da2-aac3-8655b36b15dc" message="Before test"/>
+        <logger level="WARN" doc:name="Logger" doc:id="d495eb70-c3e5-4da2-aac3-8655b36b15dc" message="1 Before test"/>
 		<flow-ref doc:name="Call getSAPMaterialsSubFlow" doc:id="fc0f7640-b6e4-472b-8c27-3d64b94977af" name="getSAPMaterialsSubFlow" />
-        <ee:transform doc:name="Prepare test data" doc:id="9761511e-1f2d-4644-ace7-3d59a693b516">
+        <logger level="WARN" doc:name="Logger" doc:id="1ab196ac-633d-4f61-b984-5b48bfb6e4ac" message="2"/>
+		<ee:transform doc:name="Prepare test data" doc:id="9761511e-1f2d-4644-ace7-3d59a693b516">
             <ee:message>
             </ee:message>
             <ee:variables>
@@ -33,7 +34,8 @@ output application/java
 payload[1]]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <ee:transform doc:name="Prepare test data for Salesforce" doc:id="10096f7c-bf3a-4c21-a381-e9b86e6430ab">
+        <logger level="WARN" doc:name="Logger" doc:id="39781cad-39c5-456b-b6bd-07d5c9b7b805" message="3"/>
+		<ee:transform doc:name="Prepare test data for Salesforce" doc:id="10096f7c-bf3a-4c21-a381-e9b86e6430ab">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/java
@@ -48,11 +50,14 @@ output application/java
             <ee:variables>
             </ee:variables>
         </ee:transform>
-        <salesforce:create doc:name="Create Product in Salesforce" doc:id="a0643d2b-5ab3-44f0-a948-a7bd948e9fc0" config-ref="Salesforce"
+        <logger level="WARN" doc:name="Logger" doc:id="ff70f56a-3752-4f4d-a146-e98e9f91fe1b" message="4"/>
+		<salesforce:create doc:name="Create Product in Salesforce" doc:id="a0643d2b-5ab3-44f0-a948-a7bd948e9fc0" config-ref="Salesforce"
             type="Product2" />
-        <set-variable value="#[payload map ($.id)]" doc:name="Store IDs to variable sfdcIds" doc:id="014f387f-1cd3-4bf9-a5cd-0a135b299e33"
+        <logger level="WARN" doc:name="Logger" doc:id="78fcfdb5-2692-463e-bf80-958986e8b781" message="5"/>
+		<set-variable value="#[payload map ($.id)]" doc:name="Store IDs to variable sfdcIds" doc:id="014f387f-1cd3-4bf9-a5cd-0a135b299e33"
             variableName="sfdcIds" />
-        <munit-tools:mock-when doc:name="Mock email processor to avoid sending email" doc:id="65de8ffc-cf2f-490c-82f1-09f984dda3ee"
+        <logger level="WARN" doc:name="Logger" doc:id="ba915a4f-a351-4385-b559-48085394133c" message="6"/>
+		<munit-tools:mock-when doc:name="Mock email processor to avoid sending email" doc:id="65de8ffc-cf2f-490c-82f1-09f984dda3ee"
             processor="email:send">
             <munit-tools:then-return />
         </munit-tools:mock-when>
